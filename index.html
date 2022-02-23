@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<title>Date + Time</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			/* Dracula Theme */
+			:root {
+				--d-background: #282a36;
+				--d-foreground: #f8f8f2;
+				--d-selection: #44475a;
+				--d-comment: #6272a4;
+				--d-red: #ff5555;
+				--d-orange: #ffb86c;
+				--d-yellow: #f1fa8c;
+				--d-green: #50fa7b;
+				--d-purple: #bd93f9;
+				--d-cyan: #8be9fd;
+				--d-pink: #ff79c6;
+			}
+		</style>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Playfair&display=swap");
+
+			:root {
+				--background: var(--d-background);
+				--color: var(--d-foreground);
+			}
+
+			html,
+			body,
+			main {
+				height: 100vh;
+				width: 100vw;
+				margin: 0;
+				padding: 0;
+				font-size: 3vw;
+				font-family: "Playfair", sans-serif;
+				color: #ffdc17;
+				background-color: #140d24;
+				font-weight: 900;
+			}
+
+			/* Center all the children of main, one on each line */
+			main {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			div {
+				display: inline-block;
+				text-align: center;
+			}
+
+			h1 {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div>
+				<h1 id="time">
+					<span id="hours"></span>:<span id="minutes"></span>:<span
+						id="seconds"
+					></span>
+					<span id="ampm"></span>
+				</h1>
+				<h1 id="date">
+					<span id="month"></span>/<span id="day"></span>/<span
+						id="year"
+					></span>
+				</h1>
+			</div>
+		</main>
+		<script>
+			const time = {
+				hours: document.getElementById("hours"),
+				minutes: document.getElementById("minutes"),
+				seconds: document.getElementById("seconds"),
+				ampm: document.getElementById("ampm"),
+			}
+			const date = {
+				month: document.getElementById("month"),
+				day: document.getElementById("day"),
+				year: document.getElementById("year"),
+			}
+
+			function update() {
+				const currentDateTime = new Date()
+
+				const currentHours = currentDateTime.getHours()
+				const currentMinutes = currentDateTime.getMinutes()
+				const currentSeconds = currentDateTime.getSeconds()
+
+				const currentMonth = currentDateTime.getMonth() + 1
+				const currentDay = currentDateTime.getDate()
+				const currentYear = currentDateTime.getFullYear()
+
+				// February 22nd 22:22:22+
+				if (
+					currentMonth === 2 &&
+					currentDay === 22 &&
+					currentHours === 22 &&
+					currentMinutes === 22 &&
+					currentSeconds > 22
+				)
+					return
+
+				time.hours.innerHTML = currentHours
+				time.minutes.innerHTML =
+					currentMinutes > 9 ? currentMinutes : "0" + currentMinutes
+				time.seconds.innerHTML =
+					currentSeconds > 9 ? currentSeconds : "0" + currentSeconds
+				//time.ampm.innerHTML = currentAMPM
+
+				date.month.innerHTML = currentMonth
+				date.day.innerHTML = currentDay
+				date.year.innerHTML = currentYear
+			}
+
+			update()
+			let interval = setInterval(() => {
+				update()
+			}, 1000)
+		</script>
+	</body>
+</html>
